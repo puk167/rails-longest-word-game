@@ -18,15 +18,24 @@ class GamesController < ApplicationController
   end
 
   def compare
-    word_array = params[:word].split.sort
-    word_array.each_with_index do |item, i|
-      if params[:letters].split.sort.include? (item)
-        word_array.delete_at[i]
+    # word_array = params[:word].split.sort
+    # word_array.each_with_index do |item, i|
+    #   if params[:letters].split.sort.include? (item)
+    #     word_array.delete_at[i]
+    #   else
+    #     word_array
+    #   end
+    # end
+    # word_array.empty?
+    word_hash = {}
+    params[:letters].split.each do |letter|
+      if word_hash.key?(letter)
+        word_hash[letter] += 1
       else
-        word_array
+        word_hash[letter] = 1
       end
     end
-    word_array.empty?
+    word_hash
   end
 
   def score
